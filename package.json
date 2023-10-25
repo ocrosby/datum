@@ -1,0 +1,15 @@
+{
+  "name": "datum",
+  "version": "1.0.0",
+  "description": "This is an example application providing a simple API and a UI for interacting data from a database.",
+  "main": "index.js",
+  "scripts": {
+    "docker:build": "docker-compose -p datum build",
+    "docker:up": "docker-compose -p datum up",
+    "docker:down": "docker-compose -p datum down",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,7 @@
+# Ignore the local postgresql database volume mount so you aren't committing your local database to git
+
+postgresql
+
+.idea
+
+**/node_modules/*
