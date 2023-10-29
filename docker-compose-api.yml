@@ -24,4 +24,4 @@ networks:
     driver: bridge
 
 volumes:
-  data:
+  postgresql-data:
