@@ -1,13 +1,25 @@
 version: '3'
 services:
   postgres:
-    image: postgres:12.1
+    image: postgres:latest
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_PASSWORD: mypassword
+    env_file:
+        - .env # Reference the .env file
     volumes:
       - ./postgresql/data:/var/lib/postgresql/data
+
+  pgadmin:
+    depends_on:
+      - postgres
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    env_file:
+      - .env # Reference the .env file
+    ports:
+      - "5050:80"
+
   api:
     depends_on:
       - postgres

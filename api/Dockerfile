@@ -24,4 +24,4 @@ EXPOSE 8080
 
 # Last but not least, define the command to run your app using CMD which defines your runtime.
 
-CMD [ "node", "server.js" ]
+CMD [ "node", "app.js" ]

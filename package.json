@@ -7,6 +7,8 @@
     "docker:build": "docker-compose -p datum build",
     "docker:up": "docker-compose -p datum up",
     "docker:down": "docker-compose -p datum down",
+    "docker:api:build": "docker-compose -f docker-compose-api.yml -p datum build",
+    "docker:api:up": "docker-compose -f docker-compose-api.yml -p datum up",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

@@ -3,5 +3,6 @@
 postgresql
 
 .idea
-
+.env
 **/node_modules/*
+/api/.env

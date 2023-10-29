@@ -1,0 +1,119 @@
+@startuml
+
+' hide the spot
+' hide the circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "Position" as position {
+  *position_id : number <<generated>>
+  __
+  *name : text
+  abbreviation : text
+}
+
+entity "Country" as country {
+  *country_id : number <<generated>>
+  __
+  *name : text
+  abbreviation : text
+}
+
+entity "StateProvince" as state_province {
+  *state_province_id : number <<generated>>
+  __
+  *name : text
+  *country_id : number <<FK>>
+  *abbreviation : text
+}
+
+entity "Club" as club {
+  *club_id : number <<generated>>
+  __
+  *name : text
+}
+
+entity "ClubType" as clubType {
+  *club_type_id : number <<generated>>
+  __
+  *name : text
+}
+
+entity "Organization" as organization {
+  *organization_id : number <<generated>>
+  __
+  *name : text
+}
+
+entity "Division" as division {
+  *division_id : number <<generated>>
+  __
+  * name : text
+}
+
+entity "Team" as team {
+  *team_id : number <<generated>>
+  __
+  gender: text
+  title : text
+  short_display : text
+  schedule_display : text
+  abbreviation : text
+  shortname : text
+  mascot : text
+  facebook_page : text
+  facebook_username : text
+  twitter_usrename : text
+  instagram_username : text
+  snapchat_username : text
+  edu_website : text
+  ahtletics_website : text
+  location : text
+  gallary_id : number
+  primary_background : text
+  primary_text : text
+  safe_text_black : text
+  safe_text_white : text
+  youtube_username : text
+  school_active : boolean
+  ncaa_id : number
+  head_coach : text
+  home_field : text
+  slug : text
+  website_url : text
+  shop_url : text
+  facebook_username : text
+
+}
+
+entity "Player" as player {
+  *player_id : number <<generated>>
+  __
+  firstName : text
+  lastName : text
+  position : number <<FK>>
+  dateOfBirth : date
+  country_id : number <<FK>>
+  slug : text
+  hometown : text
+  shirtNumber : text
+  height : text
+
+}
+
+entity "Match" as match {
+  *match_id : number <<generated>>
+  __
+  date : date
+  home_team_id : int <<FK>>
+  away_team_id : int <<FK>>
+  home_team_score : int
+  away_team_score : int
+}
+
+country }o..o| state_province
+team }o..o| player
+club }|..|| team
+
+@enduml
