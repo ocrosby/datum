@@ -51,5 +51,28 @@ module.exports = {
         } catch (error) {
             console.error('Error initializing the database:', error);
         }
+    },
+    dropDatabase: async () => {
+        try {
+            // Check if the database already exists
+            const dbExists = await checkDatabaseExistence(process.env.POSTGRES_DB);
+
+            if (dbExists) {
+                // Connect to the database
+                const client = await pool.connect();
+
+                // Run the combined initialization script
+                await client.query(`DROP DATABASE ${process.env.POSTGRES_DB}`);
+
+                // Release the client back to the pool
+                client.release();
+
+                console.log('Database dropped successfully.');
+            } else {
+                console.log('Database does not exist.');
+            }
+        } catch (error) {
+            console.error('Error dropping the database:', error);
+        }
     }
 };
