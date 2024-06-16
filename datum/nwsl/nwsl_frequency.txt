@@ -1,0 +1,103 @@
+Schools Frequencies:
+Stanford University: 21
+University of Kentucky: 1
+Florida Atlantic University: 1
+China's Zhejiang Hangzhou Greentown FC Academy: 1
+Southeastern University: 1
+Texas Tech University: 2
+University of Washington: 2
+Princeton University: 1
+University of Illinois at Urbana-Champaign: 1
+University of Central Florida: 15
+University of Miami: 3
+University of Louisville: 3
+University of Virginia: 23
+University of South Florida: 5
+Shanghai Shengli FC Academy: 1
+West Virginia University: 1
+Spring Arbor University: 1
+University of Arkansas: 7
+Florida State University: 13
+Vanderbilt University: 4
+University of California: 32
+Los Angeles (UCLA): 19
+Texas Christian University (TCU): 3
+Indiana University: 1
+University of North Carolina at Chapel Hill: 36
+Louisiana State University (LSU): 1
+Brigham Young University (BYU): 4
+Northwestern University: 1
+University of Southern California (USC): 14
+Kwara Football Academy (Nigeria): 1
+Berkeley: 13
+University of Portland: 4
+Washington State University: 4
+Santa Clara University: 5
+University of Denver: 2
+Texas A&M University: 3
+Wake Forest University: 3
+University of Notre Dame: 4
+University of Boston College: 1
+N/A (she chose to forgo college and went pro directly): 1
+University of Illinois at Chicago: 1
+Oklahoma State University: 2
+North Carolina State University: 1
+University of Colorado Boulder: 3
+Korea National Sport University: 1
+University of South Carolina: 5
+University of Florida: 9
+Pepperdine University: 2
+California State University: 1
+Fullerton: 1
+University of Wisconsin–Madison: 6
+University of Oregon: 2
+Oregon State University: 1
+Penn State University: 6
+Mississippi State University: 2
+DePaul University: 2
+Marquette University: 1
+University of Georgia: 2
+University of Tennessee: 1
+University of Maryland: 2
+College Park: 2
+Duke University: 4
+University of Nebraska–Lincoln: 1
+Harvard University: 1
+Loyola Marymount University: 1
+Ohio State University: 1
+Butler University: 1
+Hofstra University: 1
+University of Connecticut: 2
+University of Alabama: 3
+University of Texas at Austin: 4
+N/A (played for Nippon TV Beleza in Japan): 1
+N/A (played for NTV Beleza in Japan): 1
+Syracuse University: 1
+University of Oklahoma: 1
+University of Minnesota: 1
+University of Utah: 1
+University of Pittsburgh: 1
+University of Memphis: 1
+University of Mississippi: 1
+Auburn University: 1
+University of Arizona: 2
+Georgetown University: 2
+Clemson University: 3
+Paris Saint-Germain Féminines Academy: 1
+University of Glasgow: 1
+N/A (played for AS Roma in Italy): 1
+Toyo University (Japan): 1
+Rice University: 1
+University of Michigan: 2
+Rutgers University: 2
+N/A (played for Ferroviária in Brazil): 1
+N/A (played for Paris Saint-Germain Féminines in France): 1
+University of Texas at El Paso (UTEP): 1
+University of Manitoba: 1
+University of Pennsylvania: 1
+N/A (played for FC Tokyo in Japan): 1
+N/A (played for Kopparbergs/Göteborg FC in Sweden): 1
+Pennsylvania State University (Penn State): 1
+Ole Miss Soccer Academy: 1
+Carl-Zeiss Gymnasium Jena (Germany): 1
+Yale University: 1

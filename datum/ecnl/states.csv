@@ -1,0 +1,260 @@
+ID,Name,Code,Image,Time Zone ID
+116,Acre,AC,,
+66,Aguascalientes,AG,,
+236,Aichi,Ai,,
+218,Akita,Ak,,
+4,Alabama,AL,/Images/State/Alabama.png,America/Chicago
+117,Alagoas,AL,,
+5,Alaska,AK,/Images/State/Alaska.png,America/Anchorage
+53,Alberta,AB,,
+159,Alsace,A,,
+118,Amapá,AP,,
+119,Amazonas,AM,,
+98,Andalucía,AN,,
+215,Aomori,Ao,,
+160,Aquitaine,B,,
+99,Aragón,AR,,
+6,Arizona,AZ,/Images/State/Arizona.png,America/Phoenix
+7,Arkansas,AR,/Images/State/Arkansas.png,America/Chicago
+100,Asturias,AS,,
+161,Auvergne,C,,
+143,Baden-Württemberg,BW,,
+120,Bahia,BA,,
+67,Baja California,BN,,
+68,Baja California Sur,BS,,
+162,Basse-Normandie,P,,
+144,Bayern,BY,,
+145,Berlin,BE,,
+205,Bornholm,DK,,
+163,Bourgogne,D,,
+146,Brandenburg,BB,,
+147,Bremen,HB,,
+164,Bretagne,E,,
+54,British Columbia,BC,[Null],
+202,Byen Kobenhavn,DK,,
+1,California,CA,/Images/State/California.png,America/Los_Angeles
+69,Campeche,CM,,
+101,Canarias,CN,,
+102,Cantabria,CB,,
+104,Castilla y León,CL,,
+103,Castilla-La Mancha,CM,,
+105,Cataluña,CT,,
+121,Ceará,CE,,
+165,Centre,F,,
+114,Ceuta,CE,,
+166,Champagne-Ardenne,G,,
+70,Chiapas,CP,,
+225,Chiba,Ch,,
+71,Chihuahua,CH,,
+72,Coahuila,CA,,
+73,Colima,CL,,
+8,Colorado,CO,/Images/State/Colorado.png,America/Denver
+185,Connaught,C,,
+9,Connecticut,CT,/Images/State/Connecticut.png,America/New_York
+167,Corse,H,,
+10,Delaware,DE,/Images/State/Delaware.png,America/New_York
+11,District of Columbia,DC,,America/New_York
+74,Distrito Federal,DF,,
+122,Distrito Federal,DF,,
+190,Drenthe,DR,,
+75,Durango,DU,,
+251,Ehime,Eh,,
+181,England,EN,,
+123,Espírito Santo,ES,,
+106,Extremadura,EX,,
+191,Flevoland,FL,,
+12,Florida,FL,/Images/State/Florida.png,America/New_York
+168,Franche-Comté,I,,
+192,Fryslân,FR,,
+231,Fukui,Fu,,
+253,Fukuoka,Fu,,
+220,Fukushima,Fu,,
+208,Fyn,DK,,
+107,Galicia,GA,,
+193,Gelderland,GE,,
+13,Georgia,GA,/Images/State/Georgia.png,America/New_York
+234,Gifu,Gi,,
+124,Goiás,GO,,
+194,Groningen,GR,,
+76,Guanajuato,GT,,
+77,Guerrero,GR,,
+223,Gunma,Gu,,
+148,Hamburg,HH,,
+169,Haute-Normandie,Q,,
+14,Hawaii,HI,/Images/State/Hawaii.png,Pacific/Honolulu
+149,Hessen,HE,,
+78,Hidalgo,HI,,
+247,Hiroshima,Hi,,
+214,Hokkaido,Ho,,
+241,Hyogo,Hy,,
+221,Ibaraki,Ib,,
+15,Idaho,ID,/Images/State/Idaho.png,America/Denver
+170,Île-de-France,J,,
+16,Illinois,IL,/Images/State/Illinois.png,America/Chicago
+17,Indiana,IN,/Images/State/Indiana.png,America/New_York
+18,Iowa,IA,/Images/State/Iowa.png,America/Chicago
+230,Ishikawa,Is,,
+2,Islas Baleares,IB,,
+216,Iwate,Iw,,
+79,Jalisco,JA,,
+250,Kagawa,Ka,,
+259,Kagoshima,Ka,,
+227,Kanagawa,Ka,,
+19,Kansas,KS,/Images/State/Kansas.png,America/Chicago
+20,Kentucky,KY,/Images/State/Kentucky.png,America/New_York
+203,Kobenhavns omegn,DK,,
+252,Kochi,Ko,,
+256,Kumamoto,Ku,,
+239,Kyoto,Ky,,
+108,La Rioja,RI,,
+171,Languedoc-Roussillon,K,,
+186,Leinster,L,,
+195,Limburg,LI,,
+172,Limousin,L,,
+173,Lorraine,M,,
+21,Louisiana,LA,/Images/State/Luisiana.png,America/Chicago
+109,Madrid,MD,,
+22,Maine,ME,/Images/State/Maine.png,America/New_York
+55,Manitoba,MB,,
+125,Maranhão,MA,,
+34,Maryland,MD,/Images/State/Maryland.png,America/New_York
+35,Massachusetts,MA,/Images/State/Massachusetts.png,America/New_York
+126,MatoGrosso,MT,,
+127,MatoGrosso do Sul,MS,,
+151,Mecklenburg-Vorpommern,MV,,
+115,Melilla,ML,,
+80,México,MX,,
+36,Michigan,MI,/Images/State/Michigan.png,America/New_York
+81,Michoacán,MC,,
+174,Midi-Pyrénées,N,,
+237,Mie,Mi,,
+128,Minas Gerais,MG,,
+37,Minnesota,MN,/Images/State/Minnesota.png,America/Chicago
+38,Mississippi,MS,/Images/State/Mississippi.png,America/Chicago
+39,Missouri,MO,/Images/State/Missouri.png,America/Chicago
+217,Miyagi,Mi,,
+258,Miyazaki,Mi,,
+23,Montana,MT,/Images/State/Montana.png,America/Denver
+82,Morelos,MR,,
+187,Munster,M,,
+110,Murcia,MC,,
+233,Nagano,Na,,
+255,Nagasaki,Na,,
+242,Nara,Na,,
+111,Navarra,NC,,
+83,Nayarit,NA,,
+24,Nebraska,NE,/Images/State/Nebraska.png,America/Chicago
+25,Nevada,NV,/Images/State/Nevada.png,America/Los_Angeles
+56,New Brunswick,NB,,
+26,New Hampshire,NH,/Images/State/NewHampshire.png,America/New_York
+27,New Jersey,NJ,/Images/State/NewJersey.png,America/New_York
+28,New Mexico,NM,/Images/State/NewMexico.png,America/Denver
+29,New York,NY,/Images/State/NewYork.png,America/New_York
+57,Newfoundland and Labrador,NL,,
+150,Niedersachsen,NI,,
+228,Niigata,Ni,,
+196,Noord-Brabant,NB,,
+197,Noord-Holland,NH,,
+175,Nord-Pas-de-Calais,O,,
+212,Nordjylland,DK,,
+204,Nordsjaelland,DK,,
+30,North Carolina,NC,/Images/State/NorthCarolina.png,America/New_York
+31,North Dakota,ND,/Images/State/NorthDakota.png,America/Chicago
+182,Northern Ireland,NI,,
+58,Northwest Territories,NT,,
+59,Nova Scotia,NS,,
+84,Nuevo León,NL,,
+60,Nunavut,NU,,
+85,Oaxaca,OA,,
+32,Ohio,OH,/Images/State/Ohio.png,America/New_York
+257,Oita,Oi,,
+246,Okayama,Ok,,
+260,Okinawa,Ok,,
+33,Oklahoma,OK,/Images/State/Oklahoma.png,America/Chicago
+61,Ontario,ON,,
+3,Oregon,OR,/Images/State/Oregon.png,America/Los_Angeles
+240,Osaka,Os,,
+211,Ostjylland,DK,,
+206,Ostsjaelland,DK,,
+198,Overijssel,OV,,
+112,País Vasco,PV,,
+129,Pará,PA,,
+130,Paraíba,PB,,
+131,Paraná,PR,,
+176,Pays de la Loire,R,,
+40,Pennsylvania,PA,/Images/State/Pennsylvania.png,America/New_York
+132,Pernambuco,PE,,
+133,Piauí,PI,,
+177,Picardie,S,,
+178,Poitou-Charentes,T,,
+62,Prince Edward Island,PE,,
+179,Provence-Alpes-Côte d'Azur,U,,
+86,Puebla,PU,,
+63,Quebec,QC,,
+213,Queensland,QL,,
+87,Querétaro,QE,,
+88,Quintana Roo,QR,,
+153,Rheinland-Pfalz,RP,,
+152,Rheinland-Westfalen,NW,,
+41,Rhode Island,RI,/Images/State/RhodeIsland.png,America/New_York
+180,Rhône-Alpes,V,,
+134,Rio de Janeiro,RJ,,
+135,Rio Grande do Norte,RN,,
+136,Rio Grande do Sul,RS,,
+137,Rodônia,RO,,
+138,Roraima,RR,,
+154,Saarland,SL,,
+155,Sachsen,SN,,
+156,Sachsen-Anhalt,ST,,
+254,Saga,Sa,,
+224,Saitama,Sa,,
+89,San Luis Potosí,SL,,
+139,Santa Catarina,SC,,
+140,São Paulo,SP,,
+64,Saskatchewan,SK,,
+157,Schleswig-Holstein,SH,,
+183,Scotland,SC,,
+141,Sergipe,SE,,
+238,Shiga,Sh,,
+245,Shimane,Sh,,
+235,Shizuoka,Sh,,
+90,Sinaloa,SI,,
+91,Sonora,SO,,
+42,South Carolina,SC,/Images/State/SouthCarolina.png,America/New_York
+43,South Dakota,SD,/Images/State/SouthDakota.png,America/New_York
+209,Sydjylland,DK,,
+92,Tabasco,TB,,
+93,Tamaulipas,TM,,
+44,Tennessee,TN,/Images/State/Tennessee.png,America/Chicago
+45,Texas,TX,/Images/State/Texas.png,America/Chicago
+158,Thüringen,TH,,
+94,Tlaxcala,TL,,
+142,Tocantins,TO,,
+222,Tochigi,To,,
+249,Tokushima,To,,
+226,Tokyo,To,,
+244,Tottori,To,,
+229,Toyama,To,,
+188,Ulster,U,,
+46,Utah,UT,/Images/State/Utah.png,America/Denver
+199,Utrecht,UT,,
+113,Valenciana,VC,,
+95,Veracruz,VE,,
+47,Vermont,VT,/Images/State/Vermont.png,America/New_York
+207,Vest og Sydsjaelland,DK,,
+210,Vestjylland,DK,,
+48,Virginia,VA,/Images/State/Virginia.png,America/New_York
+243,Wakayama,Wa,,
+184,Wales,WL,,
+49,Washington,WA,/Images/State/Washington.png,America/Los_Angeles
+50,West Virginia,WV,/Images/State/WestVirginia.png,America/New_York
+51,Wisconsin,WI,/Images/State/Wisconsin.png,America/Chicago
+52,Wyoming,WY,/Images/State/Wyoming.png,America/Denver
+219,Yamagata,Ya,,
+248,Yamaguchi,Ya,,
+232,Yamanashi,Ya,,
+96,Yucatán,YU,,
+65,Yukon,YT,,
+97,Zacatecas,ZA,,
+200,Zeeland,ZE,,
+201,Zuid-Holland,ZH,,
