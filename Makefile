@@ -7,7 +7,10 @@ active:
 	. venv/bin/activate
 	python3 -m pip install --upgrade pip
 
+lint:
+	pylint --rcfile=.pylintrc datum tests
+
 test:
 	py.test tests
 
-.PHONY: init test active
+.PHONY: init test active lint

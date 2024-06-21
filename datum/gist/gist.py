@@ -1,11 +1,15 @@
 import os
-import requests
 import json
+
+import requests
 
 from dotenv import load_dotenv
 
+# Load the environment variables
+load_dotenv()
+
 # Your GitHub token
-token = 'your_github_token'
+token = os.getenv('GITHUB_TOKEN')
 
 # The API URL for creating gists
 url = 'https://api.github.com/gists'
@@ -27,7 +31,7 @@ data = {
 }
 
 # Send the API request
-response = requests.post(url, headers=headers, data=json.dumps(data))
+response = requests.post(url, headers=headers, data=json.dumps(data), timeout=10)
 
 # Print the URL of the created gist
 print(response.json()['html_url'])

@@ -1,15 +1,19 @@
-import os
-import csv
-import requests
-
-from typing import List, Tuple, Optional
-from dataclasses import dataclass
-
 """
 This code is written based of evaluations from
 
 https://public.totalglobalsports.com/public/event/3064/college-list
 """
+
+from __future__ import annotations
+from dataclasses import dataclass
+
+import os
+import csv
+import requests
+
+import datum.tgs.event
+
+# from typing import List, Tuple, Optional
 
 
 @dataclass
@@ -53,7 +57,7 @@ class Program:
     publish: int
     stateId: int
     collegeConferenceId: int
-    coaches: List[Coach]
+    coaches: list[Coach]
 
 
 @dataclass
@@ -72,8 +76,8 @@ class Conference:
 @dataclass
 class State:
     id: int
-    regionId: Optional[int]
-    countryId: Optional[int]
+    regionId: int | None
+    countryId: int | None
     code: str
     name: str
     image: str
@@ -84,15 +88,15 @@ class State:
 class Event:
     eventID: int
     eventLogo: str
-    eventPublicBanner: Optional[str]
-    eventBGImage: Optional[str]
+    eventPublicBanner: str | None
+    eventBGImage: str | None
     eventBGColor: str
     name: str
-    description: Optional[str]
+    description: str | None
     feeSummary: str
     orgTypeID: int
-    regStartDate: Optional[str]
-    regEndDate: Optional[str]
+    regStartDate: str | None
+    regEndDate: str | None
     regStatus: bool
     regStatusText: str
     location: str
@@ -103,23 +107,23 @@ class Event:
     eventSubTypeID: int
     eventStartDate: str
     eventEndDate: str
-    eventFeatures: Optional[str]
+    eventFeatures: str | None
     tournamentPurchaseCost: int
     paymentDate: str
-    transactionID: Optional[str]
-    cardType: Optional[str]
-    maskedCardNum: Optional[str]
-    originalAmount: Optional[str]
-    discountAmount: Optional[str]
+    transactionID: str | None
+    cardType: str | None
+    maskedCardNum: str | None
+    originalAmount: str | None
+    discountAmount: str | None
     orgID: int
     appID: str
     stateCode: str
-    programs: List[Program]
+    programs: list[Program]
 
 
-def get_college_division_list() -> List[Division]:
+def get_college_division_list() -> list[Division]:
     url = "https://public.totalglobalsports.com/api/player/get-college-division-list"
-    response = requests.get(url)
+    response = requests.get(url, timeout=10)
     data = response.json()
 
     divisions = []
@@ -130,9 +134,9 @@ def get_college_division_list() -> List[Division]:
     return divisions
 
 
-def get_college_conference_list() -> List[Conference]:
+def get_college_conference_list() -> list[Conference]:
     url = "https://public.totalglobalsports.com/api/player/get-college-conference-list"
-    response = requests.get(url)
+    response = requests.get(url, timeout=10)
     data = response.json()
 
     conferences = []
@@ -145,10 +149,10 @@ def get_college_conference_list() -> List[Conference]:
     return conferences
 
 
-def get_all_states() -> List[State]:
+def get_all_states() -> list[State]:
     url = "https://public.totalglobalsports.com/api/player/get-all-states"
 
-    response = requests.get(url)
+    response = requests.get(url, timeout=10)
     data = response.json()
 
     states = []
@@ -169,7 +173,7 @@ def get_event_by_id(eventId: int) -> Event:
     # url = f"https://public.totalglobalsports.com/public/event/{eventId}/college-list"
     url = f"https://public.totalglobalsports.com/api/Event/get-event-details-by-eventID/{eventId}"
 
-    response = requests.get(url)
+    response = requests.get(url, timeout=10)
     data = response.json().get("data")
 
     event = Event(eventID=data["eventID"],
@@ -209,9 +213,9 @@ def get_event_by_id(eventId: int) -> Event:
     return event
 
 
-def get_attending_programs(eventId: int) -> List[Program]:
-    url = f"https://public.totalglobalsports.com/api/Event/get-colleges-attending-list-with-coaches-by-event/{eventId}"
-    response = requests.get(url)
+def get_attending_programs(event_id: int) -> list[Program]:
+    url = f"https://public.totalglobalsports.com/api/Event/get-colleges-attending-list-with-coaches-by-event/{event_id}"
+    response = requests.get(url, timeout=10)
     data = response.json()
 
     infos = []
@@ -262,21 +266,16 @@ def get_attending_programs(eventId: int) -> List[Program]:
     return infos
 
 
-def find_coach(coach: Coach, accumulator: List[Tuple[Program, Coach]]) -> int:
-    for i, (current_college, current_coach) in enumerate(accumulator):
-        if coach.id == current_coach.id:
-            return i
-
-    return -1
-
-
 def process_event(eventId: int,
-                  states: List[State],
-                  divisions: List[Division],
-                  conferences: List[Conference],
-                  events: List[Event],
-                  programs: List[Program],
-                  coaches: List[Coach]):
+                  states: list[State],
+                  divisions: list[Division],
+                  conferences: list[Conference],
+                  events: list[Event],
+                  programs: list[Program],
+                  coaches: list[Coach]):
+
+    event_info = datum.tgs.event.get_by_id(eventId)
+
     event = get_event_by_id(eventId)
 
     # Don't add duplicate event names
@@ -291,7 +290,7 @@ def process_event(eventId: int,
     if os.path.exists(output_file):
         os.remove(output_file)
 
-    with open(output_file, "w", newline="") as f:
+    with open(output_file, "w", newline="", encoding="UTF8") as f:
         writer = csv.writer(f)
         writer.writerow(["College Name", "City", "State", "URL", "Name", "Role", "Email", "Phone"])
 
@@ -321,13 +320,13 @@ def process_event(eventId: int,
                     coaches.append(coach)
 
 
-def save_divisions(divisions: List[Division]):
-    output_file = f"divisions.csv"
+def save_divisions(divisions: list[Division]):
+    output_file = "divisions.csv"
 
     if os.path.exists(output_file):
         os.remove(output_file)
 
-    with open(output_file, "w", newline="") as f:
+    with open(output_file, "w", newline="", encoding="UTF8") as f:
         writer = csv.writer(f)
         writer.writerow(["ID", "Name"])
 
@@ -335,26 +334,26 @@ def save_divisions(divisions: List[Division]):
             writer.writerow([division.id, division.name])
 
 
-def save_conferences(conferences: List[Conference]):
-    output_file = f"conferences.csv"
+def save_conferences(conferences: list[Conference]):
+    output_file = "conferences.csv"
 
     if os.path.exists(output_file):
         os.remove(output_file)
 
-    with open(output_file, "w", newline="") as f:
+    with open(output_file, "w", newline="", encoding="UTF8") as f:
         writer = csv.writer(f)
         writer.writerow(["ID", "Division ID", "Name"])
 
         for conference in conferences:
             writer.writerow([conference.id, conference.divisionId, conference.name])
 
-def save_states(states: List[State]):
-    output_file = f"states.csv"
+def save_states(states: list[State]):
+    output_file = "states.csv"
 
     if os.path.exists(output_file):
         os.remove(output_file)
 
-    with open(output_file, "w", newline="") as f:
+    with open(output_file, "w", newline="", encoding="UTF8") as f:
         writer = csv.writer(f)
         writer.writerow(["ID", "Name", "Code", "Image", "Time Zone ID"])
 
@@ -362,7 +361,7 @@ def save_states(states: List[State]):
             writer.writerow([state.id, state.name, state.code, state.image, state.timeZoneId])
 
 
-def save_scouts(states: List[State], divisions: List[Division], conferences: List[Conference], events: List[Event], programs: List[Program], coaches: List[Coach], accumulator: List[Tuple[Program, Coach]]):
+def save_scouts(states: list[State], divisions: list[Division], conferences: list[Conference], events: list[Event], programs: list[Program], coaches: list[Coach], accumulator: list[tuple[Program, Coach]]):
     output_file = "scout.csv"
 
     if os.path.exists(output_file):
@@ -371,7 +370,7 @@ def save_scouts(states: List[State], divisions: List[Division], conferences: Lis
     # Sort the accumulator by college name then by coach name
     accumulator.sort(key=lambda x: (x[0].collegeName, x[1].lastName, x[1].firstName))
 
-    with open(output_file, "w", newline="") as f:
+    with open(output_file, "w", newline="", encoding="UTF8") as f:
         writer = csv.writer(f)
         writer.writerow(["College Name", "Division", "Conference", "City", "State", "URL", "Name", "Role", "Email", "Phone"])
 
