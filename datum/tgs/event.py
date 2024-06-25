@@ -130,6 +130,13 @@ def process_event(event_id: int):
         for coach in coaches:
             print(f"\t{coach['name']}, {coach['email']}, {coach['phone']}")
 
+# https://public.totalglobalsports.com/api/Event/get-event-schedule-or-standings/3064
+# https://public.totalglobalsports.com/api/Event/get-event-details-by-eventID/3064
+# https://public.totalglobalsports.com/api/Event/get-flight-division-by-flightID/24867
+# https://public.totalglobalsports.com/api/Event/get-brackets-design-by-eventID-and-flightID/3064/2486
+# https://public.totalglobalsports.com/api/Event/get-flight-brackets-by-flight/3064/24867
+# https://public.totalglobalsports.com/api/Event/get-standings-by-div-and-flight/14599/24867/3064
+
 
 def process_events(event_ids: list[int]):
     for event_id in event_ids:
