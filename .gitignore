@@ -244,3 +244,5 @@ fabric.properties
 *.csv
 unrecognized_urls.txt
 unrecognized_vendors.txt
+
+.DS_Store
