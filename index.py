@@ -146,6 +146,15 @@ def get_unprocessed_records(records: list[SchoolRecord]) -> list[SchoolRecord]:
         if record.is_processed():
             continue
 
+        if record.vendor == '':
+            record.vendor = None
+
+        if record.mens_soccer_url == '':
+            record.mens_soccer_url = None
+
+        if record.womens_soccer_url == '':
+            record.womens_soccer_url = None
+
         unprocessed_records.append(record)
 
     return unprocessed_records
@@ -261,32 +270,71 @@ def is_url_mens_soccer(url: str) -> bool:
 
     return False
 
+
+def update_index_file(record: SchoolRecord):
+    index_file = 'new_index.csv'
+    updated_records = []
+
+    with file_lock:
+        with open(index_file, mode='r') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                if row['Short Name'] == record.short_name and row['Long Name'] == record.long_name:
+                    if not row['Vendor']:
+                        row['Vendor'] = record.vendor
+                    if not row['WOSO URL']:
+                        row['WOSO URL'] = record.womens_soccer_url
+                    if not row['MOSO URL']:
+                        row['MOSO URL'] = record.mens_soccer_url
+                updated_records.append(row)
+
+    with file_lock:
+        with open(index_file, mode='w', newline='') as f:
+            fieldnames = ['Short Name', 'Long Name', 'Vendor', 'WOSO URL', 'MOSO URL']
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(updated_records)
+
+
 def process_record(record: SchoolRecord):
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
     }
 
+    print(f"Processing record: {record.long_name}")
+
     search_query = f"{record.long_name} Soccer"
     search_results = google_search(search_query)
-    for url in search_results:
-        found_womens_soccer_url = is_url_womens_soccer(url)
-        found_mens_soccer_url = is_url_mens_soccer(url)
 
-        if not found_womens_soccer_url and not found_mens_soccer_url:
-            append_to_file("unrecognized_urls.txt", url)
-            continue
+    if len(search_results) > 0:
+        print(f"Found {len(search_results)} search results for: '{search_query}'")
 
-        if found_womens_soccer_url:
-            record.womens_soccer_url = url
+        for url in search_results:
+            found_womens_soccer_url = is_url_womens_soccer(url)
+            found_mens_soccer_url = is_url_mens_soccer(url)
 
-        if found_mens_soccer_url:
-            record.mens_soccer_url = url
+            if not found_womens_soccer_url and not found_mens_soccer_url:
+                print(f"Unrecognized URL: {url}")
+                append_to_file("unrecognized_urls.txt", url)
+                continue
+            else:
+                print(f"Recognized URL: {url}")
 
-        if not record.has_vendor():
-            record.vendor = determine_vendor(url, headers)
+            if found_womens_soccer_url:
+                record.womens_soccer_url = url
 
+            if found_mens_soccer_url:
+                record.mens_soccer_url = url
 
-    append_to_file('processed_records.csv', f"{record.short_name},{record.long_name},{record.vendor},{record.womens_soccer_url},{record.mens_soccer_url}")
+            if not record.has_vendor():
+                record.vendor = determine_vendor(url, headers)
+
+        print(repr(record))
+
+        update_index_file(record)
+        append_to_file('processed_records.csv', f"{record.short_name},{record.long_name},{record.vendor},{record.womens_soccer_url},{record.mens_soccer_url}")
+    else:
+        print(f"No search results found for: '{search_query}'")
 
 
 def main():
@@ -316,7 +364,7 @@ def main():
         os.remove('failed_requests.txt')
 
     print("Processing unprocessed records")
-    max_threads = 50 # Number of threads to use for processing records
+    max_threads = 1 # Number of threads to use for processing records
     with ThreadPoolExecutor(max_workers=max_threads) as executor:
         executor.map(process_record, unprocessed_records)
 
