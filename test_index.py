@@ -4,7 +4,13 @@ from index import google_search, is_url_womens_soccer, is_url_mens_soccer, deter
 
 @pytest.mark.parametrize("search_query, expected_condition", [
     ('Wichita State University Soccer', lambda results: len(results) > 0),
-    ('Nonexistent University Soccer', lambda results: len(results) > 0)
+    ('Nonexistent University Soccer', lambda results: len(results) > 0),
+    ('Witchita State University Soccer', lambda results: len(results) > 0),
+    ('Tulane University Soccer', lambda results: len(results) > 0),
+    ('Georgia Tech Soccer', lambda results: len(results) > 0),
+    ('Montana State University Soccer', lambda results: len(results) > 0),
+    ('North Carolina State University Soccer', lambda results: len(results) > 0),
+    ('Morgan State University Soccer', lambda results: len(results) > 0),
     # Add more test cases as needed
 ])
 def test_google_search(search_query, expected_condition):

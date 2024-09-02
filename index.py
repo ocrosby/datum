@@ -3,6 +3,7 @@ This script reads the index file and processes the records. It can be used to de
 """
 
 import csv
+import time
 import os.path
 from re import findall
 from threading import Lock
@@ -173,12 +174,29 @@ filter_substrings = {
     'reddit.com', 'staff-directory', 'basketball', 'baseball', 'softball', 'volleyball', 'club-soccer', 'clubsoccer', 'football', 'roster', 'schedule', 'tickets'
 }
 
+def send_request_with_rate_limit_handling(url: str, headers: dict) -> requests.Response:
+    while True:
+        response = requests.get(url, headers)
+
+        if response.status_code == 429:  # Rate limited
+            retry_after = response.headers.get('Retry-After')
+            if retry_after:
+                wait_time = int(retry_after)
+                print(f"Rate limited. Waiting {wait_time} seconds before retrying.")
+                time.sleep(wait_time)
+            else:
+                print("Rate limited. Waiting 10 seconds before retrying.")
+                time.sleep(60)
+        else:
+            return response
+
+
 def google_search(query: str) -> list[str]:
     search_url = f"https://www.google.com/search?q={query}"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
     }
-    response = requests.get(search_url, headers=headers)
+    response = send_request_with_rate_limit_handling(search_url, headers=headers)
     soup = BeautifulSoup(response.text, 'html.parser')
 
     selected_hrefs = []
@@ -186,16 +204,27 @@ def google_search(query: str) -> list[str]:
     # Google search results are typically in <a> tags with "href" attributes
     anchors = soup.find_all('a', href=True)
 
-    interesting_hrefs = [item['href'] for item in anchors]
-    interesting_hrefs = [href for href in interesting_hrefs if href.startswith("/url?")]
-    interesting_hrefs = [extract_url(href) for href in interesting_hrefs if extract_url(href) is not None]
-    interesting_hrefs = [href for href in interesting_hrefs if href.startswith('http')]
+    interesting_hrefs = []
+    for item in anchors:
+        href = item['href']
 
-    for url in interesting_hrefs:
-        if any(substring in url for substring in filter_substrings):
+        if not href.startswith('/url?'):
             continue
 
-        selected_hrefs.append(url)
+        extracted_url = extract_url(href)
+
+        if extracted_url is None:
+            continue
+
+        if not extracted_url.startswith('http'):
+            continue
+
+        for substring in filter_substrings:
+            if substring in extracted_url:
+                print(f"Filtering out URL: '{extracted_url}' because it contains '{substring}'")
+                break
+        else:
+            selected_hrefs.append(extracted_url)
 
     return selected_hrefs
 
@@ -334,6 +363,7 @@ def process_record(record: SchoolRecord):
         update_index_file(record)
         append_to_file('processed_records.csv', f"{record.short_name},{record.long_name},{record.vendor},{record.womens_soccer_url},{record.mens_soccer_url}")
     else:
+        append_to_file('no_search_results.txt', search_query)
         print(f"No search results found for: '{search_query}'")
 
 
@@ -363,10 +393,16 @@ def main():
     if os.path.isfile('failed_requests.txt'):
         os.remove('failed_requests.txt')
 
+    if os.path.isfile('no_search_results.txt'):
+        os.remove('no_search_results.txt')
+
     print("Processing unprocessed records")
-    max_threads = 1 # Number of threads to use for processing records
-    with ThreadPoolExecutor(max_workers=max_threads) as executor:
-        executor.map(process_record, unprocessed_records)
+    for record in unprocessed_records:
+        process_record(record)
+
+    # max_threads = 1 # Number of threads to use for processing records
+    # with ThreadPoolExecutor(max_workers=max_threads) as executor:
+    #     executor.map(process_record, unprocessed_records)
 
 if __name__ == "__main__":
     main()
