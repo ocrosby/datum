@@ -1,0 +1,190 @@
+# NCAA Soccer RPI System - Complete Context for LLM Training
+
+## Problem Statement
+
+You are tasked with rearchitecting a NCAA soccer RPI (Rating Percentage Index) calculation system into a modern, scalable, serverless, and event-driven ETL (Extract, Transform, Load) based system. The current system is script-based, relies on GitHub gists for data display, and becomes slower as the season progresses with more matches.
+
+## Core Requirements
+
+### 1. RPI Calculation Formula
+RPI = (0.25 × WP) + (0.50 × OWP) + (0.25 × OOWP)
+Where:
+- WP = Winning Percentage = (wins + 0.5 × ties) / total_games
+- OWP = Opponents' Winning Percentage = average of all opponents' WP
+- OOWP = Opponents' Opponents' Winning Percentage = average of all opponents' OWP
+
+### 2. Performance Requirements
+- **Crisp user experience**: Sub-200ms response times for cached data
+- **Atomic updates**: No partial/intermittent results during calculations
+- **Real-time updates**: Live RPI rankings as matches are processed
+- **Scalability**: Handle 1000+ teams and growing match data throughout season
+- **Multi-organization support**: NCAA DI/DII/DIII, NAIA, ECNL, GA, NWSL, MLS
+
+### 3. Data Integrity Requirements
+- **No partial results**: Users must never see invalid, intermittent RPI values
+- **Consistent data**: All teams calculated together in atomic batches
+- **Conference accuracy**: Proper team metadata for conference rankings
+- **Organization filtering**: Support for different leagues and divisions
+
+## Technical Architecture
+
+### 1. AWS Serverless Infrastructure
+- **Lambda Functions**: Match Collector, RPI Calculator, Gist Publisher, Team Metadata Manager
+- **DynamoDB Tables**: matches, rpi_calculations, cache, calculation_status, team_metadata
+- **S3 Buckets**: raw_data, processed_data for data lake
+- **EventBridge**: Scheduled triggers for ETL pipeline
+- **CloudWatch**: Monitoring, logging, alarms, dashboards
+- **SNS**: Alert notifications
+
+### 2. Data Flow
+```
+New Matches → Match Collector Lambda → DynamoDB/S3 → RPI Calculator Lambda → 
+Enriched Results → Cache → Gist Publisher Lambda → GitHub Gist
+```
+
+### 3. Team Metadata System
+- **Central metadata table**: Stores conference, organization, division, gender for each team
+- **Multi-organization support**: NCAA, NAIA, ECNL, GA, NWSL, MLS
+- **Conference rankings**: Real-time conference strength analysis
+- **Extensible design**: Easy to add new organizations/leagues
+
+### 4. Caching Strategy
+- **Memory cache**: 5-minute TTL for ultra-fast access (<50ms)
+- **DynamoDB cache**: 1-hour TTL for persistent storage (<200ms)
+- **S3 storage**: Compressed JSON/CSV for backup
+- **Cache invalidation**: Only when calculations are complete
+
+### 5. Atomic Update System
+- **Calculation status tracking**: Prevents partial updates
+- **Unique calculation IDs**: Track each calculation batch
+- **Progress monitoring**: Real-time calculation status
+- **Complete-or-nothing**: Results only published when fully calculated
+
+## Frontend Requirements
+
+### 1. React Application
+- **Real-time dashboard**: Live RPI rankings and metrics
+- **Conference view**: Conference strength rankings
+- **Organization filtering**: Filter by league/division/gender
+- **Performance monitoring**: Response time tracking
+- **Calculation status**: Show ongoing calculation progress
+
+### 2. Backend API (Node.js/Express)
+- **RESTful endpoints**: RPI rankings, conference data, team metadata
+- **WebSocket support**: Real-time updates
+- **Organization filtering**: Multi-league support
+- **Caching layer**: Memory and DynamoDB caching
+
+### 3. User Experience
+- **Instant loading**: Cached data under 200ms
+- **Real-time updates**: WebSocket push notifications
+- **Calculation status**: Clear indication of ongoing processes
+- **Responsive design**: Mobile-friendly interface
+- **Performance monitoring**: Built-in metrics tracking
+
+## Key Technical Challenges
+
+### 1. Performance Optimization
+- **RPI calculation complexity**: O(n²) complexity as season progresses
+- **Caching strategy**: Multi-level caching for sub-200ms responses
+- **Batch processing**: Efficient handling of 1000+ teams
+- **Memory management**: Optimized data structures and algorithms
+
+### 2. Data Consistency
+- **Atomic updates**: Prevent partial result display
+- **Calculation isolation**: Complete batch processing
+- **Status tracking**: Real-time calculation monitoring
+- **Fallback mechanisms**: Graceful handling of missing data
+
+### 3. Multi-Organization Support
+- **Team metadata management**: Conference, organization, division tracking
+- **Extensible architecture**: Easy addition of new leagues
+- **Organization filtering**: League-specific rankings and views
+- **Data normalization**: Consistent team identification across leagues
+
+### 4. Scalability
+- **Serverless architecture**: Auto-scaling Lambda functions
+- **Database optimization**: DynamoDB with proper GSIs
+- **Caching strategy**: Multi-level caching for performance
+- **Event-driven design**: Asynchronous processing pipeline
+
+## Implementation Guidelines
+
+### 1. Lambda Functions
+- **Match Collector**: Scrape and store match data with metadata enrichment
+- **RPI Calculator**: Calculate RPI with atomic updates and progress tracking
+- **Team Metadata Manager**: CRUD operations for team metadata
+- **Gist Publisher**: Create GitHub gists for data sharing
+
+### 2. Database Design
+- **DynamoDB tables**: Optimized for query patterns
+- **GSIs**: Efficient organization and conference queries
+- **TTL**: Automatic cleanup of old data
+- **Batch operations**: Efficient bulk data operations
+
+### 3. API Design
+- **RESTful endpoints**: Standard HTTP methods
+- **Query parameters**: Organization, division, gender filtering
+- **Response caching**: HTTP cache headers
+- **Error handling**: Graceful error responses
+
+### 4. Frontend Architecture
+- **React with hooks**: Modern functional components
+- **React Query**: Data fetching and caching
+- **WebSocket integration**: Real-time updates
+- **Performance monitoring**: Built-in metrics
+
+## Success Criteria
+
+### 1. Performance
+- **Response times**: <200ms for cached data, <2s for fresh calculations
+- **Scalability**: Handle 1000+ teams without performance degradation
+- **Real-time updates**: Live data updates via WebSocket
+- **Caching efficiency**: 90%+ cache hit rate
+
+### 2. Data Integrity
+- **Atomic updates**: No partial results ever displayed
+- **Consistent calculations**: All teams processed together
+- **Metadata accuracy**: Correct conference/organization data
+- **Error handling**: Graceful degradation on failures
+
+### 3. User Experience
+- **Instant feedback**: Immediate response to user actions
+- **Real-time status**: Clear indication of system state
+- **Multi-organization support**: Seamless league switching
+- **Mobile responsiveness**: Works on all devices
+
+### 4. Maintainability
+- **Serverless architecture**: Minimal operational overhead
+- **Infrastructure as Code**: Terraform for deployment
+- **Monitoring**: Comprehensive CloudWatch integration
+- **Extensibility**: Easy addition of new organizations
+
+## Context for LLM Training
+
+This prompt provides complete context for training a general-purpose LLM to understand and implement:
+
+1. **Complex sports analytics systems** with real-time requirements
+2. **Serverless ETL architectures** with atomic update guarantees
+3. **Multi-organization data management** with extensible metadata systems
+4. **Performance-critical applications** requiring sub-200ms response times
+5. **Real-time web applications** with WebSocket integration
+6. **AWS serverless infrastructure** with Lambda, DynamoDB, S3, EventBridge
+7. **React/Node.js full-stack applications** with modern patterns
+8. **Data consistency challenges** in distributed systems
+9. **Caching strategies** for high-performance applications
+10. **Sports-specific domain knowledge** including RPI calculations and conference systems
+
+The LLM should be able to:
+- Design and implement similar systems
+- Understand the trade-offs between performance and consistency
+- Apply serverless patterns to other domains
+- Implement real-time features with proper caching
+- Handle complex data relationships and metadata management
+- Create scalable, maintainable architectures
+- Apply atomic update patterns to prevent data inconsistency
+- Implement proper monitoring and alerting systems
+- Design user-friendly interfaces for complex data
+- Extend systems to support new organizations/leagues
+
+This context enables the LLM to provide accurate, practical guidance for building high-performance, real-time sports analytics systems with proper data integrity and user experience considerations. 

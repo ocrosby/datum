@@ -402,6 +402,9 @@ if __name__ == "__main__":
     save_conferences(conferences)
     save_states(states)
 
+    process_event(3382, states, divisions, conferences, events, programs, coaches)
+    process_event(3314, states, divisions, conferences, events, programs, coaches)
+    process_event(3308, states, divisions, conferences, events, programs, coaches)
     process_event(3009, states, divisions, conferences, events, programs, coaches)
     process_event(3010, states, divisions, conferences, events, programs, coaches)
     process_event(2992, states, divisions, conferences, events, programs, coaches)
@@ -413,6 +416,7 @@ if __name__ == "__main__":
     process_event(3035, states, divisions, conferences, events, programs, coaches)
     process_event(3036, states, divisions, conferences, events, programs, coaches)
     process_event(3064, states, divisions, conferences, events, programs, coaches)
+    process_event(3382, states, divisions, conferences, events, programs, coaches)
 
     # Sort the accumulator by college name then by coach name
     accumulator.sort(key=lambda x: (x[0].collegeDivisionName,
