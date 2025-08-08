@@ -245,3 +245,18 @@ unrecognized_urls.txt
 unrecognized_vendors.txt
 
 .DS_Store
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+terraform.tfvars
+*.tfvars
+*.tfvars.json
+.terraformrc
+terraform.rc
+crash.log
+crash.*.log
+*.backup
+*.backup.*
