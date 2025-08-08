@@ -59,12 +59,14 @@ resource "aws_dynamodb_table" "matches" {
   global_secondary_index {
     name     = "date-index"
     hash_key = "date"
+    projection_type = "ALL"
   }
 
   global_secondary_index {
     name     = "teams-index"
     hash_key = "home_team"
     range_key = "away_team"
+    projection_type = "ALL"
   }
 }
 
@@ -149,6 +151,7 @@ resource "aws_dynamodb_table" "team_metadata" {
     name     = "organization-division-gender-index"
     hash_key = "organization"
     range_key = "division"
+    projection_type = "ALL"
   }
 
   # GSI for conference queries
@@ -156,12 +159,14 @@ resource "aws_dynamodb_table" "team_metadata" {
     name     = "conference-organization-index"
     hash_key = "conference"
     range_key = "organization"
+    projection_type = "ALL"
   }
 
   # GSI for team name searches
   global_secondary_index {
     name     = "team_name-index"
     hash_key = "team_name"
+    projection_type = "ALL"
   }
 }
 
@@ -197,12 +202,14 @@ resource "aws_dynamodb_table" "event_store" {
     name     = "event-type-timestamp-index"
     hash_key = "event_type"
     range_key = "timestamp"
+    projection_type = "ALL"
   }
 
   # GSI for timestamp queries
   global_secondary_index {
     name     = "timestamp-index"
     hash_key = "timestamp"
+    projection_type = "ALL"
   }
 }
 
